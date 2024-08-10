@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		A091F6362C67A5A60056E511 /* advent-of-code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "advent-of-code"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A091F6392C67A5A60056E511 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		A091F6402C67A9880056E511 /* day-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-1.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +42,7 @@
 		A091F62D2C67A5A60056E511 = {
 			isa = PBXGroup;
 			children = (
+				A091F6412C67A9880056E511 /* resources */,
 				A091F6382C67A5A60056E511 /* advent-of-code */,
 				A091F6372C67A5A60056E511 /* Products */,
 			);
@@ -60,6 +62,14 @@
 				A091F6392C67A5A60056E511 /* main.c */,
 			);
 			path = "advent-of-code";
+			sourceTree = "<group>";
+		};
+		A091F6412C67A9880056E511 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				A091F6402C67A9880056E511 /* day-1.txt */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
