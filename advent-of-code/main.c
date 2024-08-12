@@ -10,86 +10,63 @@
 #include <string.h>
 #include <stdbool.h>
 
-void day1part2(void){
-    char* numbers[9] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-    char* realNumbers[9] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-    
+void day2(void){
     FILE* file;
-    file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-1.txt", "r");
+    file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-2.txt", "r");
     
     int sum = 0;
     char line[256];
+
     while (fgets(line, sizeof(line), file)) {
-        printf("Line: %s", line);
-        int first = -1, last = -1;
-        int firstIndex = (int)strlen(line), lastIndex = -1;
+        //remove the white line at the end for easy parsing
+        line[strlen(line)-1] = '\0';
         
-        for (int n = 0; n < 9; n++){
-            char *tmp1 = line;
-            char *tmp2 = line;
+        printf("%s\n", line);
+        char* gamePtr;
+        char* game = strtok_r(line, ":", &gamePtr);
+        char* gameIdC = strtok(game, " ");
+        gameIdC = strtok(NULL, " ");
+        int gameIdI = atoi(gameIdC);
+        
+        game = strtok_r(NULL, ":", &gamePtr);
+        char* turnPtr;
+        char* turn = strtok_r(game, ";", &turnPtr);
+        
+        bool isValid = true;
+        while (turn && isValid) {
+            char* colorTurnPtr;
+            char* colorTurn = strtok_r(turn, ",", &colorTurnPtr);
             
-            int l = (int)strlen(numbers[n]);
-            while ((tmp1 = strstr(tmp1, numbers[n]))){
-                int index = (int)(line - tmp1) * -1;
-                if (index < firstIndex){
-                    firstIndex = index;
-                    first = n+1;
+            int red = 0, green = 0, blue = 0;
+            while (colorTurn){
+                int colorNum = atoi(strtok(colorTurn, " "));
+                char* color = strtok(NULL, " ");
+                
+                if (strcmp(color, "red") == 0){
+                    red += colorNum;
+                } else if (strcmp(color, "green") == 0){
+                    green += colorNum;
+                } else {
+                    blue += colorNum;
                 }
-                if (index > lastIndex){
-                    lastIndex = index;
-                    last = n+1;
-                }
-                tmp1 = &tmp1[l];
+                
+                colorTurn = strtok_r(NULL, ",", &colorTurnPtr);
             }
-            while ((tmp2 = strstr(tmp2, realNumbers[n]))){
-                int index = (int)(line - tmp2) * -1;
-                if (index < firstIndex){
-                    firstIndex = index;
-                    first = n+1;
-                }
-                if (index > lastIndex){
-                    lastIndex = index;
-                    last = n+1;
-                }
-                tmp2 = &tmp2[1];
-            }
+            isValid &= red <= 12 && green <= 13 && blue <= 14;
+            turn = strtok_r(NULL, ";", &turnPtr);
         }
         
-        int curr = (10 * first) + last;
-        sum += curr;
-        printf("Number found: %i\n", curr);
-    }
-
-    printf("The sum of all the lines is: %i\n", sum);
-    fclose(file);
-}
-
-void day1part1(void){
-    FILE* file;
-    file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-1.txt", "r");
-    
-    int sum = 0;
-    char line[256];
-    while (fgets(line, sizeof(line), file)) {
-        printf("Line: %s", line);
-        char first = '\0', last = '\0';
-        for (int c = 0; line[c] != '\r' && line[c] != '\n' && line[c] != '\0'; c++ ){
-            if (line[c] >= '0' && line[c] <= '9'){
-                if (first == '\0') first = line[c];
-                last = line[c];
-            }
+        if (isValid){
+            sum += gameIdI;
+            printf("VALID Game ID: %i - Current sum is: %i\n", gameIdI, sum);
         }
-        int curr = (10 * (first - '0')) + (last - '0');
-        sum += curr;
-        printf("Number found: %i\n", curr);
+        printf("\n");
     }
-
-    printf("The sum of all the lines is: %i\n", sum);
-    fclose(file);
+    
+    printf("Total sum: %i\n", sum);
 }
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    day1part2();
+    day2();
     return 0;
 }

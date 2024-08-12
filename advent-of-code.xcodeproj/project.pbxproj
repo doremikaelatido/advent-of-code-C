@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */ = {isa = PBXBuildFile; fileRef = A029B39C2C68FCF700A4FBCE /* day-1.c */; };
 		A091F63A2C67A5A60056E511 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A091F6392C67A5A60056E511 /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A029B39B2C68FCF700A4FBCE /* day-1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-1.h"; sourceTree = "<group>"; };
+		A029B39C2C68FCF700A4FBCE /* day-1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-1.c"; sourceTree = "<group>"; };
+		A029B39E2C69035300A4FBCE /* day-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-2.txt"; sourceTree = "<group>"; };
 		A091F6362C67A5A60056E511 /* advent-of-code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "advent-of-code"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A091F6392C67A5A60056E511 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A091F6402C67A9880056E511 /* day-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-1.txt"; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				A091F6392C67A5A60056E511 /* main.c */,
+				A029B39B2C68FCF700A4FBCE /* day-1.h */,
+				A029B39C2C68FCF700A4FBCE /* day-1.c */,
 			);
 			path = "advent-of-code";
 			sourceTree = "<group>";
@@ -67,6 +73,7 @@
 		A091F6412C67A9880056E511 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				A029B39E2C69035300A4FBCE /* day-2.txt */,
 				A091F6402C67A9880056E511 /* day-1.txt */,
 			);
 			path = resources;
@@ -129,6 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */,
 				A091F63A2C67A5A60056E511 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
