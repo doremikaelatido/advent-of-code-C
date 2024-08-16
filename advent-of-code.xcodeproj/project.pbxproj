@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */ = {isa = PBXBuildFile; fileRef = A029B39C2C68FCF700A4FBCE /* day-1.c */; };
 		A091F63A2C67A5A60056E511 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A091F6392C67A5A60056E511 /* main.c */; };
+		A0CADF7B2C6CED880018468E /* day-2.c in Sources */ = {isa = PBXBuildFile; fileRef = A0CADF7A2C6CED880018468E /* day-2.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +31,9 @@
 		A091F6362C67A5A60056E511 /* advent-of-code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "advent-of-code"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A091F6392C67A5A60056E511 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A091F6402C67A9880056E511 /* day-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-1.txt"; sourceTree = "<group>"; };
+		A0CADF752C6CECEE0018468E /* day-3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "day-3.txt"; sourceTree = "<group>"; };
+		A0CADF792C6CED880018468E /* day-2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-2.h"; sourceTree = "<group>"; };
+		A0CADF7A2C6CED880018468E /* day-2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-2.c"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				A091F6392C67A5A60056E511 /* main.c */,
 				A029B39B2C68FCF700A4FBCE /* day-1.h */,
 				A029B39C2C68FCF700A4FBCE /* day-1.c */,
+				A0CADF792C6CED880018468E /* day-2.h */,
+				A0CADF7A2C6CED880018468E /* day-2.c */,
 			);
 			path = "advent-of-code";
 			sourceTree = "<group>";
@@ -73,6 +79,7 @@
 		A091F6412C67A9880056E511 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				A0CADF752C6CECEE0018468E /* day-3.txt */,
 				A029B39E2C69035300A4FBCE /* day-2.txt */,
 				A091F6402C67A9880056E511 /* day-1.txt */,
 			);
@@ -136,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0CADF7B2C6CED880018468E /* day-2.c in Sources */,
 				A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */,
 				A091F63A2C67A5A60056E511 /* main.c in Sources */,
 			);

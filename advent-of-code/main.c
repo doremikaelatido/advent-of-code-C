@@ -9,119 +9,118 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 
-void day2part2(void){
-    FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-2.txt", "r");
+void day3part1(void){
+    FILE* file;
+    file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-3.txt", "r");
+    
+    char line[500];
+    int up[140][3];
+    int curr[140][3];
+    int upLength = 0;
     
     int sum = 0;
-    char line[256];
-
+    
+    char *upLine = line;
     while (fgets(line, sizeof(line), file)) {
-        //remove the white line at the end for easy parsing
-        line[strlen(line)-1] = '\0';
+        int str_len = (int)strlen(line)-1;
+
+        line[str_len] = '\0';
+        int ci = 0;
+        int upPointer = 0;
         
+        int c = 0;
+        printf("%s\n", upLine);
         printf("%s\n", line);
-        char* gamePtr;
-        char* game = strtok_r(line, ":", &gamePtr);
-        char* gameIdC = strtok(game, " ");
-        gameIdC = strtok(NULL, " ");
-        int gameIdI = atoi(gameIdC);
         
-        game = strtok_r(NULL, ":", &gamePtr);
-        char* turnPtr;
-        char* turn = strtok_r(game, ";", &turnPtr);
-        
-        int maxRed = 0, maxGreen = 0, maxBlue = 0;
-        while (turn) {
-            char* colorTurnPtr;
-            char* colorTurn = strtok_r(turn, ",", &colorTurnPtr);
-            
-            int red = 0, green = 0, blue = 0;
-            while (colorTurn){
-                int colorNum = atoi(strtok(colorTurn, " "));
-                char* color = strtok(NULL, " ");
-                
-                if (strcmp(color, "red") == 0){
-                    red += colorNum;
-                    if (red > maxRed) maxRed = red;
-                } else if (strcmp(color, "green") == 0){
-                    green += colorNum;
-                    if (green > maxGreen) maxGreen = green;
-                } else {
-                    blue += colorNum;
-                    if (blue > maxBlue) maxBlue = blue;
+        while (c<str_len){
+            if (line[c] == '.') {
+                c++;
+                continue;
+            } else if (isdigit(line[c])){
+                char number[6];
+                int startIndex = c;
+                while (isdigit(line[c])){
+                    strncat(number, &line[c], 1);
+                    c++;
                 }
                 
-                colorTurn = strtok_r(NULL, ",", &colorTurnPtr);
-            }
-
-            turn = strtok_r(NULL, ";", &turnPtr);
-        }
-        
-        printf("Minimum red: %i Minimum green: %i Minimum blue: %i\n", maxRed, maxGreen, maxBlue);
-        sum += (maxRed * maxGreen * maxBlue);
-        printf("VALID Game ID: %i - Current sum is: %i\n", gameIdI, sum);
-    }
-    
-    printf("Total sum: %i\n", sum);
-}
-
-void day2part1(void){
-    FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-2.txt", "r");
-    
-    int sum = 0;
-    char line[256];
-
-    while (fgets(line, sizeof(line), file)) {
-        //remove the white line at the end for easy parsing
-        line[strlen(line)-1] = '\0';
-        
-        printf("%s\n", line);
-        char* gamePtr;
-        char* game = strtok_r(line, ":", &gamePtr);
-        char* gameIdC = strtok(game, " ");
-        gameIdC = strtok(NULL, " ");
-        int gameIdI = atoi(gameIdC);
-        
-        game = strtok_r(NULL, ":", &gamePtr);
-        char* turnPtr;
-        char* turn = strtok_r(game, ";", &turnPtr);
-        
-        bool isValid = true;
-        while (turn && isValid) {
-            char* colorTurnPtr;
-            char* colorTurn = strtok_r(turn, ",", &colorTurnPtr);
-            
-            int red = 0, green = 0, blue = 0;
-            while (colorTurn){
-                int colorNum = atoi(strtok(colorTurn, " "));
-                char* color = strtok(NULL, " ");
+                curr[ci][0] = startIndex;
+                curr[ci][1] = c-1;
+                curr[ci][2] = atoi(number);
                 
-                if (strcmp(color, "red") == 0){
-                    red += colorNum;
-                } else if (strcmp(color, "green") == 0){
-                    green += colorNum;
-                } else {
-                    blue += colorNum;
+                //check for symbols adjacent in the current line
+                if ((startIndex > 1 && line[startIndex-1] != '.') || (c < 140 && line[c] != '.')){
+                    printf("%i + ", curr[ci][2]);
+                    sum += curr[ci][2];
+                    curr[ci][2] = 0;
+                } else if (upLength > 0){
+                    //skip where upper bound < startIndex - no chance of overlap
+                    while(upPointer < upLength && up[upPointer][1] < curr[ci][0]){
+                        upPointer++;
+                    }
+                    //check all while lower bound <= current c index
+                    while (upPointer < upLength && up[upPointer][0] <= curr[ci][1]){
+                        if (up[upPointer][2] == -1){
+                            printf("%i + ", curr[ci][2]);
+                            sum += curr[ci][2];
+                            curr[ci][2] = 0;
+                            break;
+                        }
+                        upPointer++;
+                    }
                 }
+                number[0] = '\0';
+                ci++;
+            } else {
+                curr[ci][0] = c-1;
+                curr[ci][1] = c+1;
+                curr[ci][2] = -1;
                 
-                colorTurn = strtok_r(NULL, ",", &colorTurnPtr);
+                if (upLength > 0){
+                    //skip where upper bound < startIndex - no chance of overlap
+                    while(upPointer < upLength && up[upPointer][1] < curr[ci][0]){
+                        upPointer++;
+                    }
+                    //check all while lower bound <= current c index
+                    while (upPointer < upLength && up[upPointer][0] <= curr[ci][1]){
+                        if (up[upPointer][2] != -1){
+                            printf("%i + ", up[upPointer][2]);
+                            sum += up[upPointer][2];
+                        }
+                        //in the event that 2 symbols are overlapping at the ends
+                        //we don't want to move the uppointer - we still want to use it for the next number
+                        if (up[upPointer][0] < curr[ci][1]) upPointer++;
+                        else break;
+                    }
+                }
+                ci++;
+                c++;
             }
-            isValid &= red <= 12 && green <= 13 && blue <= 14;
-            turn = strtok_r(NULL, ";", &turnPtr);
         }
         
-        if (isValid){
-            sum += gameIdI;
-            printf("VALID Game ID: %i - Current sum is: %i\n", gameIdI, sum);
+        //replace the values of up with the current array
+        //and then reset curr to default values for next iteration
+        for (int i = 0; i<140; i++){
+            up[i][0] = curr[i][0];
+            up[i][1] = curr[i][1];
+            up[i][2] = curr[i][2];
+
+            curr[i][0] = 0;
+            curr[i][1] = 0;
+            curr[i][2] = 0;
         }
-        printf("\n");
+        upLength = ci;
+        upLine = strdup(line);
+        printf("\n\n");
     }
     
-    printf("Total sum: %i\n", sum);
+    printf("Sum is %i\n", sum);
 }
+
 
 int main(int argc, const char * argv[]) {
-    day2part2();
+    day3part1();
     return 0;
 }
