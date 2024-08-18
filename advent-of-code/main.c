@@ -11,6 +11,106 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+void day3part2(void){
+    FILE* file;
+    file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-3.txt", "r");
+    
+    char line[500];
+    int lines[140][140][3];
+    int lineCount[140];
+    int lc = 0;
+    
+    while (fgets(line, sizeof(line), file)) {
+        int str_len = (int)strlen(line)-1;
+        line[str_len] = '\0';
+        int ci = 0;
+        int c = 0;
+        
+        while (c<str_len){
+            if (line[c] == '*'){
+                lines[lc][ci][0] = c-1;
+                lines[lc][ci][1] = c+1;
+                lines[lc][ci][2] = -1;
+                c++;
+                ci++;
+            } else if (isdigit(line[c])){
+                char number[6];
+                int startIndex = c;
+                while (isdigit(line[c])){
+                    strncat(number, &line[c], 1);
+                    c++;
+                }
+                lines[lc][ci][0] = startIndex;
+                lines[lc][ci][1] = c-1;
+                lines[lc][ci][2] = atoi(number);
+                number[0] = '\0';
+                ci++;
+            } else {
+                c++;
+                continue;
+            }
+        }
+        lineCount[lc] = ci;
+        lc++;
+    }
+    
+    int ans = 0;
+    int nextPointer = 2;
+    while (nextPointer < 140){
+        int prevPointer = nextPointer - 2, currPointer = nextPointer - 1;
+        int ciPrev = 0, ciCurr = 0, ciNext = 0;
+        
+        while (ciCurr < lineCount[currPointer]){
+            int gearRatio = 1;
+            //look for an asterisk
+            while(ciCurr < lineCount[currPointer] && lines[currPointer][ciCurr][2] != -1) ciCurr++;
+            if (ciCurr == lineCount[currPointer]) {
+                break;
+            }
+            
+            int adjacents = 0;
+            
+            //check same line - to the left and right of the asterisk found
+            if (ciCurr > 0 && lines[currPointer][ciCurr-1][2] != -1 && lines[currPointer][ciCurr-1][1] == lines[currPointer][ciCurr][0]){
+                gearRatio *= lines[currPointer][ciCurr-1][2];
+                adjacents++;
+            }
+            if (ciCurr < lineCount[currPointer] && lines[currPointer][ciCurr+1][2] != -1 && lines[currPointer][ciCurr+1][0] == lines[currPointer][ciCurr][1]){
+                gearRatio *= lines[currPointer][ciCurr+1][2];
+                adjacents++;
+            }
+
+            //skip everything that has 0 chance of overlap with current asterisk
+            while (ciPrev < lineCount[prevPointer] && lines[prevPointer][ciPrev][1] < lines[currPointer][ciCurr][0]) ciPrev++;
+            //check previous line in the range of the asterisk found, and increment adjacents as needed
+            while (ciPrev < lineCount[prevPointer] && lines[prevPointer][ciPrev][0] <= lines[currPointer][ciCurr][1]){
+                if (lines[prevPointer][ciPrev][2] != -1){
+                    gearRatio *= lines[prevPointer][ciPrev][2];
+                    adjacents++;
+                }
+                ciPrev++;
+            }
+            
+            //skip everything that has 0 chance of overlap with current asterisk
+            while (ciNext < lineCount[nextPointer] && lines[nextPointer][ciNext][1] < lines[currPointer][ciCurr][0]) ciNext++;
+            //check next line in the range of the asterisk found, and increment adjacents as needed
+            while (ciNext < lineCount[nextPointer] && lines[nextPointer][ciNext][0] <= lines[currPointer][ciCurr][1]){
+                if (lines[nextPointer][ciNext][2] != -1) {
+                    gearRatio *= lines[nextPointer][ciNext][2];
+                    adjacents++;
+                }
+                ciNext++;
+            }
+            
+            //only add to final answer if adjacents = 2
+            if (adjacents == 2) ans += gearRatio;
+            ciCurr++;
+        }
+        nextPointer++;
+    }
+    printf("Sum of gear ratios is %i\n", ans);
+}
+
 void day3part1(void){
     FILE* file;
     file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-3.txt", "r");
@@ -121,6 +221,6 @@ void day3part1(void){
 
 
 int main(int argc, const char * argv[]) {
-    day3part1();
+    day3part2();
     return 0;
 }
