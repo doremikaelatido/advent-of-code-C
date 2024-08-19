@@ -35,6 +35,56 @@ bool cardWon(int* winCards, int playedCard){
     return false;
 }
 
+void day4part2(void){
+    FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-4.txt", "r");
+    char line[256];
+
+    int answer = 0;
+    int scratchcards[215];
+    for (int i=0; i<215; i++){
+        scratchcards[i] = 1;
+    }
+    int ithLine = 0;
+    
+    while (fgets(line, sizeof(line), file)) {
+        line[strlen(line)-1] = '\0';
+        
+        printf("%s\n", line);
+        printf("Current cards: %i\n", scratchcards[ithLine]);
+
+        strtok(line, ":");
+        char* cards = strtok(NULL, ":");
+        
+        char* sides;
+        char* winningCards = strtok_r(cards, "|", &sides);
+        int winCards[10] = {};
+        
+        char* winCard = strtok(winningCards, " ");
+        int ithCard = 0;
+        
+        while (ithCard < 10 && winCard != NULL){
+            winCards[ithCard++] = atoi(winCard);
+            winCard = strtok(NULL, " ");
+        }
+        qsort(winCards, sizeof(winCards)/sizeof(*winCards), sizeof(*winCards), comp);
+        
+        char* playedCards = strtok_r(NULL, "|", &sides);
+        char* playedCard = strtok(playedCards, " ");
+
+        int scNext = 0;
+        while (playedCard != NULL){
+            if (cardWon(winCards, atoi(playedCard))){
+                scNext++;
+                scratchcards[ithLine + scNext] += scratchcards[ithLine];
+            }
+            playedCard = strtok(NULL, " ");
+        }
+        answer += scratchcards[ithLine];
+        ithLine++;
+    }
+    printf("Total score: %i\n", answer);
+}
+
 void day4part1(void){
     FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-4.txt", "r");
     char line[256];
@@ -44,7 +94,7 @@ void day4part1(void){
         line[strlen(line)-1] = '\0';
         
         printf("%s\n", line);
-        char* game = strtok(line, ":");
+        strtok(line, ":");
         char* cards = strtok(NULL, ":");
         
         char* sides;
@@ -78,6 +128,6 @@ void day4part1(void){
 }
 
 int main(int argc, const char * argv[]) {
-    day4part1();
+    day4part2();
     return 0;
 }
