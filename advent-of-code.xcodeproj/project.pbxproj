@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A01C9DE82C75DFCE00C9136D /* day-4.c in Sources */ = {isa = PBXBuildFile; fileRef = A01C9DE72C75DFCE00C9136D /* day-4.c */; };
 		A025EFE62C721FAD00E95683 /* day-3.c in Sources */ = {isa = PBXBuildFile; fileRef = A025EFE52C721FAD00E95683 /* day-3.c */; };
 		A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */ = {isa = PBXBuildFile; fileRef = A029B39C2C68FCF700A4FBCE /* day-1.c */; };
 		A091F63A2C67A5A60056E511 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A091F6392C67A5A60056E511 /* main.c */; };
@@ -26,6 +27,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A01C9DE62C75DFCE00C9136D /* day-4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-4.h"; sourceTree = "<group>"; };
+		A01C9DE72C75DFCE00C9136D /* day-4.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-4.c"; sourceTree = "<group>"; };
+		A01C9DE92C75E15300C9136D /* day-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-5.txt"; sourceTree = "<group>"; };
 		A025EFE42C721FAD00E95683 /* day-3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-3.h"; sourceTree = "<group>"; };
 		A025EFE52C721FAD00E95683 /* day-3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-3.c"; sourceTree = "<group>"; };
 		A029B39B2C68FCF700A4FBCE /* day-1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-1.h"; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				A091F6392C67A5A60056E511 /* main.c */,
+				A01C9DE62C75DFCE00C9136D /* day-4.h */,
+				A01C9DE72C75DFCE00C9136D /* day-4.c */,
 				A029B39B2C68FCF700A4FBCE /* day-1.h */,
 				A029B39C2C68FCF700A4FBCE /* day-1.c */,
 				A0CADF792C6CED880018468E /* day-2.h */,
@@ -85,6 +91,7 @@
 		A091F6412C67A9880056E511 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				A01C9DE92C75E15300C9136D /* day-5.txt */,
 				A041EFCB2C73522B00433634 /* day-4.txt */,
 				A0CADF752C6CECEE0018468E /* day-3.txt */,
 				A029B39E2C69035300A4FBCE /* day-2.txt */,
@@ -151,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CADF7B2C6CED880018468E /* day-2.c in Sources */,
+				A01C9DE82C75DFCE00C9136D /* day-4.c in Sources */,
 				A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */,
 				A025EFE62C721FAD00E95683 /* day-3.c in Sources */,
 				A091F63A2C67A5A60056E511 /* main.c in Sources */,

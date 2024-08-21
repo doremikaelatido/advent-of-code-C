@@ -11,123 +11,157 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#include <locale.h>
+
 #include "day-1.h"
 #include "day-2.h"
 #include "day-3.h"
+#include "day-4.h"
 
-int comp (const void * first, const void * second)
+//62641412 - too low
+//226172555
+typedef struct mapping{
+    long destinationRange;
+    long sourceRange;
+    long range;
+} Mapping;
+
+char *mappingLabels[] = {"seed-to-soil map:", "soil-to-fertilizer map:", "fertilizer-to-water map:", "water-to-light map:", "light-to-temperature map:", "temperature-to-humidity map:", "humidity-to-location map:"};
+int nthMapping = 0;
+
+int compLongs (const void * first, const void * second)
 {
-    int f = *((int*)first);
-    int s = *((int*)second);
+    long f = *((long*)first);
+    long s = *((long*)second);
     if (f > s) return  1;
     if (f < s) return -1;
     return 0;
 }
 
-bool cardWon(int* winCards, int playedCard){
-    int l = 0, r = 9;
-    while (l <= r){
-        int middle = l + (r - l) / 2;
-        if (winCards[middle] == playedCard) return true;
-        if (winCards[middle] < playedCard) l = middle + 1;
-        else r = middle - 1;
-    }
-    return false;
-}
-
-void day4part2(void){
-    FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-4.txt", "r");
-    char line[256];
-
-    int answer = 0;
-    int scratchcards[215];
-    for (int i=0; i<215; i++){
-        scratchcards[i] = 1;
-    }
-    int ithLine = 0;
+int getSeeds(char* seedsArr, long **seeds){
+    *seeds = malloc(20 * sizeof(int));
     
-    while (fgets(line, sizeof(line), file)) {
-        line[strlen(line)-1] = '\0';
-        
-        printf("%s\n", line);
-        printf("Current cards: %i\n", scratchcards[ithLine]);
-
-        strtok(line, ":");
-        char* cards = strtok(NULL, ":");
-        
-        char* sides;
-        char* winningCards = strtok_r(cards, "|", &sides);
-        int winCards[10] = {};
-        
-        char* winCard = strtok(winningCards, " ");
-        int ithCard = 0;
-        
-        while (ithCard < 10 && winCard != NULL){
-            winCards[ithCard++] = atoi(winCard);
-            winCard = strtok(NULL, " ");
-        }
-        qsort(winCards, sizeof(winCards)/sizeof(*winCards), sizeof(*winCards), comp);
-        
-        char* playedCards = strtok_r(NULL, "|", &sides);
-        char* playedCard = strtok(playedCards, " ");
-
-        int scNext = 0;
-        while (playedCard != NULL){
-            if (cardWon(winCards, atoi(playedCard))){
-                scNext++;
-                scratchcards[ithLine + scNext] += scratchcards[ithLine];
-            }
-            playedCard = strtok(NULL, " ");
-        }
-        answer += scratchcards[ithLine];
-        ithLine++;
+    strtok(seedsArr, ":");
+    char* rawSeeds = strtok(NULL, ":");
+    char* rawSeed = strtok(rawSeeds, " ");
+    
+    
+    int i = 0;
+    while (rawSeed != NULL){
+        (*seeds)[i++] = strtol(rawSeed, NULL, 10);
+        rawSeed = strtok(NULL, " ");
     }
-    printf("Total score: %i\n", answer);
+    return i;
 }
 
-void day4part1(void){
-    FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-4.txt", "r");
-    char line[256];
+int compMappings (const void *first, const void *second)
+{
+    long f = (*(Mapping*)first).sourceRange;
+    long s = (*(Mapping*)second).sourceRange;
+    if (f > s) return  1;
+    if (f < s) return -1;
+    return 0;
+}
 
-    int answer = 0;
+void printWithCommas(long n) {
+    if (n < 1000) {
+        printf ("%ld", n);
+        return;
+    }
+    printWithCommas(n/1000);
+    printf (",%03ld", n%1000);
+}
+
+
+void processMapping(FILE* file, long** previousValues, int valuesLength){
+    char line[256];
+    
+    Mapping mappings[50];
+    int mappingsLength = 0, ithMapping = 0;
+    
+    printf("\nProcessing mappings batch\n\n");
+    while (fgets(line, sizeof(line), file) && strcmp(line, "\n") != 0){
+        mappings[ithMapping].destinationRange = strtol(strtok(line, " "), NULL, 10);
+        mappings[ithMapping].sourceRange = strtol(strtok(NULL, " "), NULL, 10);
+        mappings[ithMapping].range = strtol(strtok(NULL, " "), NULL, 10);
+        ithMapping++;
+        mappingsLength++;
+    }
+    
+    qsort(mappings, mappingsLength, sizeof(Mapping), compMappings);
+    ithMapping = 0;
+    
+    long newValues[20];
+    for (int u=0; u<valuesLength; u++){
+        bool found = false;
+        //skip all where no chance of overlap
+        while (ithMapping < mappingsLength && (mappings[ithMapping].sourceRange + mappings[ithMapping].range - 1) < (*previousValues)[u]){
+            ithMapping++;
+        }
+        
+        if (ithMapping < mappingsLength && mappings[ithMapping].sourceRange <= (*previousValues)[u]){
+            printWithCommas((*previousValues)[u]);
+            printf(" => WITH RANGE ");
+            printWithCommas(mappings[ithMapping].sourceRange);
+            printf("-");
+            printWithCommas(mappings[ithMapping].sourceRange + mappings[ithMapping].range - 1);
+            printf("\n");
+            
+            found = true;
+            newValues[u] = mappings[ithMapping].destinationRange + ((*previousValues)[u] - mappings[ithMapping].sourceRange);
+            
+            printf("FORMULA: ");
+            printWithCommas(mappings[ithMapping].destinationRange);
+            printf(" + (");
+            printWithCommas((*previousValues)[u]);
+            printf(" - ");
+            printWithCommas(mappings[ithMapping].sourceRange);
+            printf(") = ");
+        }
+        
+        if(found == false){
+            printf("NO RANGE MATCH: KEEPING ");
+            newValues[u] = (*previousValues)[u];
+        }
+        
+        printWithCommas(newValues[u]);
+        printf("\n\n");
+    }
+    
+    *previousValues = newValues;
+}
+
+void day5part1(void){
+    FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-5.txt", "r");
+    char line[256];
+    
+    fgets(line, sizeof(line), file);
+    long* previousMappings;
+    
+    int length = 20;
+    
+    getSeeds(line, &previousMappings);
+
     while (fgets(line, sizeof(line), file)) {
         line[strlen(line)-1] = '\0';
         
-        printf("%s\n", line);
-        strtok(line, ":");
-        char* cards = strtok(NULL, ":");
-        
-        char* sides;
-        char* winningCards = strtok_r(cards, "|", &sides);
-        int winCards[10] = {};
-        
-        char* winCard = strtok(winningCards, " ");
-        int ithCard = 0;
-        
-        while (ithCard < 10 && winCard != NULL){
-            winCards[ithCard++] = atoi(winCard);
-            winCard = strtok(NULL, " ");
-        }
-        qsort(winCards, sizeof(winCards)/sizeof(*winCards), sizeof(*winCards), comp);
-        
-        char* playedCards = strtok_r(NULL, "|", &sides);
-        char* playedCard = strtok(playedCards, " ");
+        qsort(previousMappings, (sizeof(long)*length)/sizeof(*previousMappings), sizeof(*previousMappings), compLongs);
 
-        int sc = 0;
-        while (playedCard != NULL){
-            if (cardWon(winCards, atoi(playedCard))){
-                printf("Number found: %s\n", playedCard);
-                if (sc == 0) sc = 1;
-                else sc *= 2;
-            }
-            playedCard = strtok(NULL, " ");
+        if (strcmp(line, mappingLabels[nthMapping]) == 0){
+            processMapping(file, &previousMappings, length);
+            nthMapping++;
         }
-        answer += sc;
     }
-    printf("Total score: %i\n", answer);
+    
+    long lowestLocation = previousMappings[0];
+    for(int i=1; i<length; i++){
+        if (previousMappings[i] < lowestLocation) lowestLocation = previousMappings[i];
+    }
+    
+    printf("Lowest location value = %ld\n", lowestLocation);
 }
 
 int main(int argc, const char * argv[]) {
-    day4part2();
+    day5part1();
     return 0;
 }
