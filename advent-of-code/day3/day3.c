@@ -5,7 +5,7 @@
 //  Created by Mikaela Nicole Ramos on 8/18/24.
 //
 
-#include "day-3.h"
+#include "day3.h"
 
 #include <stdio.h>
 #include <stdlib.h>

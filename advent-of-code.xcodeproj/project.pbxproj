@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A01C9DE82C75DFCE00C9136D /* day-4.c in Sources */ = {isa = PBXBuildFile; fileRef = A01C9DE72C75DFCE00C9136D /* day-4.c */; };
 		A01C9DEC2C76335800C9136D /* day5.c in Sources */ = {isa = PBXBuildFile; fileRef = A01C9DEB2C76335800C9136D /* day5.c */; };
-		A025EFE62C721FAD00E95683 /* day-3.c in Sources */ = {isa = PBXBuildFile; fileRef = A025EFE52C721FAD00E95683 /* day-3.c */; };
-		A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */ = {isa = PBXBuildFile; fileRef = A029B39C2C68FCF700A4FBCE /* day-1.c */; };
+		A04578292C7B62CE0024BDF7 /* day1.c in Sources */ = {isa = PBXBuildFile; fileRef = A04578272C7B62CE0024BDF7 /* day1.c */; };
+		A045782C2C7B62D80024BDF7 /* day2.c in Sources */ = {isa = PBXBuildFile; fileRef = A045782B2C7B62D80024BDF7 /* day2.c */; };
+		A045782F2C7B62E30024BDF7 /* day3.c in Sources */ = {isa = PBXBuildFile; fileRef = A045782E2C7B62E30024BDF7 /* day3.c */; };
+		A04578322C7B62F10024BDF7 /* day4.c in Sources */ = {isa = PBXBuildFile; fileRef = A04578312C7B62F10024BDF7 /* day4.c */; };
 		A091F63A2C67A5A60056E511 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A091F6392C67A5A60056E511 /* main.c */; };
-		A0CADF7B2C6CED880018468E /* day-2.c in Sources */ = {isa = PBXBuildFile; fileRef = A0CADF7A2C6CED880018468E /* day-2.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,23 +28,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A01C9DE62C75DFCE00C9136D /* day-4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-4.h"; sourceTree = "<group>"; };
-		A01C9DE72C75DFCE00C9136D /* day-4.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-4.c"; sourceTree = "<group>"; };
 		A01C9DE92C75E15300C9136D /* day-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-5.txt"; sourceTree = "<group>"; };
 		A01C9DEA2C76335800C9136D /* day5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = day5.h; path = day5/day5.h; sourceTree = "<group>"; };
 		A01C9DEB2C76335800C9136D /* day5.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = day5.c; path = day5/day5.c; sourceTree = "<group>"; };
-		A025EFE42C721FAD00E95683 /* day-3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-3.h"; sourceTree = "<group>"; };
-		A025EFE52C721FAD00E95683 /* day-3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-3.c"; sourceTree = "<group>"; };
-		A029B39B2C68FCF700A4FBCE /* day-1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-1.h"; sourceTree = "<group>"; };
-		A029B39C2C68FCF700A4FBCE /* day-1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-1.c"; sourceTree = "<group>"; };
 		A029B39E2C69035300A4FBCE /* day-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-2.txt"; sourceTree = "<group>"; };
 		A041EFCB2C73522B00433634 /* day-4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "day-4.txt"; sourceTree = "<group>"; };
+		A04578272C7B62CE0024BDF7 /* day1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = day1.c; path = day1/day1.c; sourceTree = "<group>"; };
+		A04578282C7B62CE0024BDF7 /* day1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = day1.h; path = day1/day1.h; sourceTree = "<group>"; };
+		A045782A2C7B62D80024BDF7 /* day2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = day2.h; path = day2/day2.h; sourceTree = "<group>"; };
+		A045782B2C7B62D80024BDF7 /* day2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = day2.c; path = day2/day2.c; sourceTree = "<group>"; };
+		A045782D2C7B62E30024BDF7 /* day3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = day3.h; path = day3/day3.h; sourceTree = "<group>"; };
+		A045782E2C7B62E30024BDF7 /* day3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = day3.c; path = day3/day3.c; sourceTree = "<group>"; };
+		A04578302C7B62F10024BDF7 /* day4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = day4.h; path = day4/day4.h; sourceTree = "<group>"; };
+		A04578312C7B62F10024BDF7 /* day4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = day4.c; path = day4/day4.c; sourceTree = "<group>"; };
 		A091F6362C67A5A60056E511 /* advent-of-code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "advent-of-code"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A091F6392C67A5A60056E511 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A091F6402C67A9880056E511 /* day-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-1.txt"; sourceTree = "<group>"; };
 		A0CADF752C6CECEE0018468E /* day-3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "day-3.txt"; sourceTree = "<group>"; };
-		A0CADF792C6CED880018468E /* day-2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "day-2.h"; sourceTree = "<group>"; };
-		A0CADF7A2C6CED880018468E /* day-2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "day-2.c"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,15 +78,15 @@
 		A091F6382C67A5A60056E511 /* advent-of-code */ = {
 			isa = PBXGroup;
 			children = (
+				A04578312C7B62F10024BDF7 /* day4.c */,
+				A04578302C7B62F10024BDF7 /* day4.h */,
+				A045782E2C7B62E30024BDF7 /* day3.c */,
+				A045782D2C7B62E30024BDF7 /* day3.h */,
+				A045782B2C7B62D80024BDF7 /* day2.c */,
+				A045782A2C7B62D80024BDF7 /* day2.h */,
+				A04578272C7B62CE0024BDF7 /* day1.c */,
+				A04578282C7B62CE0024BDF7 /* day1.h */,
 				A091F6392C67A5A60056E511 /* main.c */,
-				A01C9DE62C75DFCE00C9136D /* day-4.h */,
-				A01C9DE72C75DFCE00C9136D /* day-4.c */,
-				A029B39B2C68FCF700A4FBCE /* day-1.h */,
-				A029B39C2C68FCF700A4FBCE /* day-1.c */,
-				A0CADF792C6CED880018468E /* day-2.h */,
-				A0CADF7A2C6CED880018468E /* day-2.c */,
-				A025EFE42C721FAD00E95683 /* day-3.h */,
-				A025EFE52C721FAD00E95683 /* day-3.c */,
 				A01C9DEA2C76335800C9136D /* day5.h */,
 				A01C9DEB2C76335800C9136D /* day5.c */,
 			);
@@ -162,12 +162,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A045782F2C7B62E30024BDF7 /* day3.c in Sources */,
+				A04578322C7B62F10024BDF7 /* day4.c in Sources */,
 				A01C9DEC2C76335800C9136D /* day5.c in Sources */,
-				A0CADF7B2C6CED880018468E /* day-2.c in Sources */,
-				A01C9DE82C75DFCE00C9136D /* day-4.c in Sources */,
-				A029B39D2C68FCF700A4FBCE /* day-1.c in Sources */,
-				A025EFE62C721FAD00E95683 /* day-3.c in Sources */,
+				A04578292C7B62CE0024BDF7 /* day1.c in Sources */,
 				A091F63A2C67A5A60056E511 /* main.c in Sources */,
+				A045782C2C7B62D80024BDF7 /* day2.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#include "day-4.h"
+#include "day4.h"
 
 int comp (const void * first, const void * second)
 {

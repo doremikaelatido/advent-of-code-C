@@ -5,7 +5,7 @@
 //  Created by Mikaela Nicole Ramos on 8/14/24.
 //
 
-#include "day-2.h"
+#include "day2.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>

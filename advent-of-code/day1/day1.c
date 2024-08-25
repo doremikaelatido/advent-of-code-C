@@ -5,7 +5,7 @@
 //  Created by Mikaela Nicole Ramos on 8/11/24.
 //
 
-#include "day-1.h"
+#include "day1.h"
 #include <string.h>
 
 void day1part2(void){

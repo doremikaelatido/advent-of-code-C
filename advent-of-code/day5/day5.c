@@ -47,6 +47,22 @@ int getSeeds(char* seedsArr, long **seeds){
     return i;
 }
 
+int getSeedsPt2(char* seedsArr, long **seeds){
+    *seeds = malloc(20 * sizeof(int));
+    
+    strtok(seedsArr, ":");
+    char* rawSeeds = strtok(NULL, ":");
+    char* rawSeed = strtok(rawSeeds, " ");
+    
+    
+    int i = 0;
+    while (rawSeed != NULL){
+        (*seeds)[i++] = strtol(rawSeed, NULL, 10);
+        rawSeed = strtok(NULL, " ");
+    }
+    return i;
+}
+
 int compMappings (const void *first, const void *second)
 {
     long f = (*(Mapping*)first).sourceRange;

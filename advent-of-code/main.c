@@ -11,10 +11,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#include "day-1.h"
-#include "day-2.h"
-#include "day-3.h"
-#include "day-4.h"
+#include "day1/day1.h"
+#include "day2/day2.h"
+#include "day3/day3.h"
+#include "day4/day4.h"
 #include "day5/day5.h"
 
 int main(int argc, const char * argv[]) {
