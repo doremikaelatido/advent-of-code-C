@@ -18,6 +18,6 @@
 #include "day5/day5.h"
 
 int main(int argc, const char * argv[]) {
-    day5part1();
+    day5part2();
     return 0;
 }

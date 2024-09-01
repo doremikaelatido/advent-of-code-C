@@ -32,28 +32,11 @@ int compLongs (const void * first, const void * second)
 }
 
 int getSeeds(char* seedsArr, long **seeds){
-    *seeds = malloc(20 * sizeof(int));
+    *seeds = malloc(20 * sizeof(long));
     
     strtok(seedsArr, ":");
     char* rawSeeds = strtok(NULL, ":");
     char* rawSeed = strtok(rawSeeds, " ");
-    
-    
-    int i = 0;
-    while (rawSeed != NULL){
-        (*seeds)[i++] = strtol(rawSeed, NULL, 10);
-        rawSeed = strtok(NULL, " ");
-    }
-    return i;
-}
-
-int getSeedsPt2(char* seedsArr, long **seeds){
-    *seeds = malloc(20 * sizeof(int));
-    
-    strtok(seedsArr, ":");
-    char* rawSeeds = strtok(NULL, ":");
-    char* rawSeed = strtok(rawSeeds, " ");
-    
     
     int i = 0;
     while (rawSeed != NULL){
@@ -81,8 +64,58 @@ void printWithCommas(long n) {
     printf (",%03ld", n%1000);
 }
 
+long getSeedsPart2(char* seedsArr, long **seeds){
+    strtok(seedsArr, ":");
+    char* rawSeeds = strtok(NULL, ":");
+    char* rawSeed = strtok(rawSeeds, " ");
+    
+    int i = 0;
+    Mapping seedRanges[10];
+    while (i < 10){
+        long start = strtol(rawSeed, NULL, 10);
+        rawSeed = strtok(NULL, " ");
+        long range = strtol(rawSeed, NULL, 10);
+        seedRanges[i].sourceRange = start;
+        seedRanges[i].range = range;
+        i++;
+    }
+    
+    qsort(seedRanges, 10, sizeof(Mapping), compMappings);
+    long ranges[10][2] = { {seedRanges[0].sourceRange, seedRanges[0].sourceRange + seedRanges[0].range - 1} };
+    int rP = 0;
+    
+    long seedsSize = 0;
+    for (int i =1; i<10; i++){
+        printf("%ld - %ld\n", seedRanges[i].sourceRange, seedRanges[i].sourceRange+seedRanges[i].range);
+        if (seedRanges[i].sourceRange > ranges[rP][1]){
+            seedsSize += ranges[rP][1] - ranges[rP][0];
+            rP++;
+            ranges[rP][0] = seedRanges[i].sourceRange;
+            ranges[rP][1] = seedRanges[i].sourceRange + seedRanges[i].range;
+        } else{
+            //only change the upper bound if it's really bigger than the last upper bound
+            if (ranges[rP][1] < seedRanges[i].sourceRange + seedRanges[i].range)
+                ranges[rP][1] = seedRanges[i].sourceRange + seedRanges[i].range;
+        }
+    }
+    seedsSize += ranges[rP][1] - ranges[rP][0];
+    printf("Seed size: %ld\n", seedsSize);
+    *seeds = malloc(seedsSize * sizeof(long));
 
-void processMapping(FILE* file, long** previousValues, int valuesLength){
+    long sInd = 0;
+    for (int u = 0; u <= rP; u++){
+        long seed = ranges[u][0];
+        while (seed < ranges[u][1]){
+            (*seeds)[sInd] = seed;
+            seed++;
+            sInd++;
+        }
+    }
+    
+    return seedsSize;
+}
+
+void processMapping(FILE* file, long** previousValues, long valuesLength){
     char line[256];
     
     Mapping mappings[50];
@@ -100,7 +133,7 @@ void processMapping(FILE* file, long** previousValues, int valuesLength){
     qsort(mappings, mappingsLength, sizeof(Mapping), compMappings);
     ithMapping = 0;
     
-    long newValues[20];
+    long newValues[valuesLength];
     for (int u=0; u<valuesLength; u++){
         bool found = false;
         //skip all where no chance of overlap
@@ -109,35 +142,62 @@ void processMapping(FILE* file, long** previousValues, int valuesLength){
         }
         
         if (ithMapping < mappingsLength && mappings[ithMapping].sourceRange <= (*previousValues)[u]){
-            printWithCommas((*previousValues)[u]);
-            printf(" => WITH RANGE ");
-            printWithCommas(mappings[ithMapping].sourceRange);
-            printf("-");
-            printWithCommas(mappings[ithMapping].sourceRange + mappings[ithMapping].range - 1);
-            printf("\n");
+            //printWithCommas((*previousValues)[u]);
+            //printf(" => WITH RANGE ");
+            //printWithCommas(mappings[ithMapping].sourceRange);
+            //printf("-");
+            //printWithCommas(mappings[ithMapping].sourceRange + mappings[ithMapping].range - 1);
+            //printf("\n");
             
             found = true;
             newValues[u] = mappings[ithMapping].destinationRange + ((*previousValues)[u] - mappings[ithMapping].sourceRange);
             
-            printf("FORMULA: ");
-            printWithCommas(mappings[ithMapping].destinationRange);
-            printf(" + (");
-            printWithCommas((*previousValues)[u]);
-            printf(" - ");
-            printWithCommas(mappings[ithMapping].sourceRange);
-            printf(") = ");
+            //printf("FORMULA: ");
+            //printWithCommas(mappings[ithMapping].destinationRange);
+            //printf(" + (");
+            //printWithCommas((*previousValues)[u]);
+            //printf(" - ");
+            //printWithCommas(mappings[ithMapping].sourceRange);
+            //printf(") = ");
         }
         
         if(found == false){
-            printf("NO RANGE MATCH: KEEPING ");
+            //printf("NO RANGE MATCH: KEEPING ");
             newValues[u] = (*previousValues)[u];
         }
         
-        printWithCommas(newValues[u]);
-        printf("\n\n");
+        //printWithCommas(newValues[u]);
+        //printf("\n\n");
     }
     
     *previousValues = newValues;
+}
+
+void day5part2(void){
+    FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-5.txt", "r");
+    char line[256];
+    
+    fgets(line, sizeof(line), file);
+    long* previousMappings;
+    long seedsCount = getSeedsPart2(line, &previousMappings);
+
+    while (fgets(line, sizeof(line), file)) {
+        line[strlen(line)-1] = '\0';
+        
+        qsort(previousMappings, (sizeof(long)*seedsCount)/sizeof(*previousMappings), sizeof(*previousMappings), compLongs);
+
+        if (strcmp(line, mappingLabels[nthMapping]) == 0){
+            processMapping(file, &previousMappings, seedsCount);
+            nthMapping++;
+        }
+    }
+    
+    long lowestLocation = previousMappings[0];
+    for(int i=1; i<seedsCount; i++){
+        if (previousMappings[i] < lowestLocation) lowestLocation = previousMappings[i];
+    }
+    
+    printf("Lowest location value = %ld\n", lowestLocation);
 }
 
 void day5part1(void){

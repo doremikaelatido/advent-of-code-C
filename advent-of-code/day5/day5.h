@@ -11,5 +11,6 @@
 #include <stdio.h>
 
 void day5part1(void);
+void day5part2(void);
 
 #endif /* day5_h */
