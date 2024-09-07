@@ -36,6 +36,7 @@ int getSeedsv2(char* seedsArr, Mapping **seeds){
     char* rawSeed = strtok(rawSeeds, " ");
     
     int i = 0;
+    //parse all of the seed - range values and initialize mappings
     while (i < 10){
         long start = strtol(rawSeed, NULL, 10);
         rawSeed = strtok(NULL, " ");
@@ -52,14 +53,8 @@ int getSeedsv2(char* seedsArr, Mapping **seeds){
     mergedSeeds[0] = (*seeds)[0];
     
     int mSInd = 0;
-    /*printf("SEEDS\n");
-    for (int n=0; n<10; n++){
-        printWithCommas((*seeds)[n].sourceRange);
-        printf("-");
-        printWithCommas((*seeds)[n].sourceRange + (*seeds)[n].range);
-        printf("\n");
-    }*/
     
+    //look for seed values overlapping and merge them to avoid recalculations
     for (int m=1; m<10; m++){
         if (mergedSeeds[mSInd].sourceRange >= (*seeds)[m].sourceRange && (*seeds)[m].sourceRange + (*seeds)[m].range < mergedSeeds[mSInd].range){
             //do nothing, in range
@@ -72,13 +67,8 @@ int getSeedsv2(char* seedsArr, Mapping **seeds){
             mergedSeeds[mSInd].range = (*seeds)[m].range;
         }
     }
+    
     *seeds = mergedSeeds;
-    
-    /*printf("NEW SEEDS\n");
-    for (int n=0; n<mSInd+1; n++){
-        printRange((*seeds)[n]);
-    }*/
-    
     return mSInd + 1;
 }
 
@@ -94,7 +84,6 @@ int processMappingv2(FILE* file, Mapping** previousValues, long valuesLength){
         mappings[ithMapping].sourceRange = strtol(strtok(NULL, " "), NULL, 10);
         mappings[ithMapping].range = strtol(strtok(NULL, " "), NULL, 10);
         mappingsLength++;
-        //printf("%ld %ld %ld\n", mappings[ithMapping].destinationRange, mappings[ithMapping].sourceRange, mappings[ithMapping].range);
         ithMapping++;
     }
     qsort(mappings, mappingsLength, sizeof(Mapping), compMappings);
@@ -122,7 +111,6 @@ int processMappingv2(FILE* file, Mapping** previousValues, long valuesLength){
 
                 //some range of values that cannot be mapped
                 if(remainSrcRange < mappings[nValToMap].sourceRange){
-                    //printf("keep the values\n");
                     //retain values
                     newValues[nNewVal].sourceRange = remainSrcRange;
                     //but we want to make sure to only map to the same value if it's not part of a range
@@ -130,19 +118,11 @@ int processMappingv2(FILE* file, Mapping** previousValues, long valuesLength){
                 }
                 //check next mapping
                 else if (remainSrcRange >= upperBoundRange){
-                    //printf("use the next mapping\n");
                     nValToMap++;
                     continue;
                 }
-                //use up the entire range
-                else if (remainSrcRange == mappings[nValToMap].sourceRange){
-                    //printf("use the entire current mapping\n");
-                    newValues[nNewVal].range = min(upperBoundRange - remainSrcRange, entireRange - remainSrcRange);
-                    newValues[nNewVal].sourceRange = mappings[nValToMap].destinationRange;
-                }
                 //in that specific range
                 else {
-                    printf("use partial mapping\n");
                     newValues[nNewVal].range = min(upperBoundRange - remainSrcRange, entireRange - remainSrcRange);
                     newValues[nNewVal].sourceRange = mappings[nValToMap].destinationRange + remainSrcRange - mappings[nValToMap].sourceRange;
                 }
@@ -156,7 +136,7 @@ int processMappingv2(FILE* file, Mapping** previousValues, long valuesLength){
                 printRange(mappings[nValToMap]);
                 printDestinationRange(mappings[nValToMap]);
 
-                printf("new range: ");
+                printf("output range: ");
                 printRange(newValues[nNewVal]);
                 printf("\n");
                 
@@ -201,10 +181,11 @@ void day5part2v2(void){
     }
     
     qsort(previousMappings, mapCount, sizeof(Mapping), compMappings);
-    printf("\n LAST MAPPINGS\n");
+    printf("\n FINAL MAPPINGS\n");
     for (int u=0; u<mapCount; u++){
         printRange(previousMappings[u]);
     }
+    
     printf("lowest value: \n");
     printWithCommas(previousMappings[0].sourceRange);
     printf("\n");
