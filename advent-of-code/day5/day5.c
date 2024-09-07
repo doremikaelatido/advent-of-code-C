@@ -7,19 +7,6 @@
 
 #include "day5.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <ctype.h>
-
-typedef struct mapping{
-    long destinationRange;
-    long sourceRange;
-    long range;
-} Mapping;
-
-char *mappingLabels[] = {"seed-to-soil map:", "soil-to-fertilizer map:", "fertilizer-to-water map:", "water-to-light map:", "light-to-temperature map:", "temperature-to-humidity map:", "humidity-to-location map:"};
 int nthMapping = 0;
 
 int compLongs (const void * first, const void * second)
