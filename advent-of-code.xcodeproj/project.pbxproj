@@ -13,6 +13,7 @@
 		A045782C2C7B62D80024BDF7 /* day2.c in Sources */ = {isa = PBXBuildFile; fileRef = A045782B2C7B62D80024BDF7 /* day2.c */; };
 		A045782F2C7B62E30024BDF7 /* day3.c in Sources */ = {isa = PBXBuildFile; fileRef = A045782E2C7B62E30024BDF7 /* day3.c */; };
 		A04578322C7B62F10024BDF7 /* day4.c in Sources */ = {isa = PBXBuildFile; fileRef = A04578312C7B62F10024BDF7 /* day4.c */; };
+		A081295E2C8C00D8004FCEAE /* day6.c in Sources */ = {isa = PBXBuildFile; fileRef = A081295D2C8C00D8004FCEAE /* day6.c */; };
 		A091F63A2C67A5A60056E511 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A091F6392C67A5A60056E511 /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,9 @@
 		A045782E2C7B62E30024BDF7 /* day3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = day3.c; path = day3/day3.c; sourceTree = "<group>"; };
 		A04578302C7B62F10024BDF7 /* day4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = day4.h; path = day4/day4.h; sourceTree = "<group>"; };
 		A04578312C7B62F10024BDF7 /* day4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = day4.c; path = day4/day4.c; sourceTree = "<group>"; };
+		A081295C2C8C00D8004FCEAE /* day6.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = day6.h; path = day6/day6.h; sourceTree = "<group>"; };
+		A081295D2C8C00D8004FCEAE /* day6.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = day6.c; path = day6/day6.c; sourceTree = "<group>"; };
+		A081295F2C8C08C6004FCEAE /* day-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-6.txt"; sourceTree = "<group>"; };
 		A091F6362C67A5A60056E511 /* advent-of-code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "advent-of-code"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A091F6392C67A5A60056E511 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A091F6402C67A9880056E511 /* day-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-1.txt"; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				A01C9DEB2C76335800C9136D /* day5.c */,
 				A03774502C8479200022878F /* day5-v2.h */,
 				A03774512C8479200022878F /* day5-v2.c */,
+				A081295C2C8C00D8004FCEAE /* day6.h */,
+				A081295D2C8C00D8004FCEAE /* day6.c */,
 			);
 			path = "advent-of-code";
 			sourceTree = "<group>";
@@ -101,6 +107,7 @@
 		A091F6412C67A9880056E511 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				A081295F2C8C08C6004FCEAE /* day-6.txt */,
 				A01C9DE92C75E15300C9136D /* day-5.txt */,
 				A041EFCB2C73522B00433634 /* day-4.txt */,
 				A0CADF752C6CECEE0018468E /* day-3.txt */,
@@ -170,6 +177,7 @@
 				A045782F2C7B62E30024BDF7 /* day3.c in Sources */,
 				A03774522C8479200022878F /* day5-v2.c in Sources */,
 				A04578322C7B62F10024BDF7 /* day4.c in Sources */,
+				A081295E2C8C00D8004FCEAE /* day6.c in Sources */,
 				A01C9DEC2C76335800C9136D /* day5.c in Sources */,
 				A04578292C7B62CE0024BDF7 /* day1.c in Sources */,
 				A091F63A2C67A5A60056E511 /* main.c in Sources */,
