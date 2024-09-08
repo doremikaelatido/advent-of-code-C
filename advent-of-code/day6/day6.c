@@ -9,9 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
-//3655808 - too high
-//3000000 - too low
 int totalTime[4];
 int recordDistance[4];
 
@@ -38,29 +37,39 @@ void setRecordedDistance(char *distanceData){
     }
 }
 
-int getMinimumSpeed(int ithGame){
-    int low = 0;
-    int gameTotalTime = totalTime[ithGame];
-    int high = gameTotalTime;
-    
-    printf("total time: %i record distance: %i\n", totalTime[ithGame], recordDistance[ithGame]);
+long getMinimumSpeed(long time, long distance){
+    long low = 0;
+    long high = time;
+    printf("total time: %ld record distance: %ld\n", time, distance);
     
     while (low != high){
-        int mid = (low + high) / 2;
-        if ((gameTotalTime - mid) * mid > recordDistance[ithGame]){
+        long mid = (low + high) / 2;
+        if ((time - mid) * mid > distance){
             high = mid;
         } else {
             low = mid + 1;
         }
     }
     
-    printf("lowest possible speed: %i\n", low);
+    printf("lowest possible speed: %ld\n", low);
     return low;
 }
 
-int getWinCount(int ithGame){
-    int minSpeed = getMinimumSpeed(ithGame);
-    return totalTime[ithGame] - (2 * (minSpeed)) + 1;
+long getWinCount(long time, long distance){
+    long minSpeed = getMinimumSpeed(time, distance);
+    return time - (2 * (minSpeed)) + 1;
+}
+
+long joinIntArray(int* array){
+    long outLong = array[0];
+    for (int i=1; i<4; i++){
+        long zerosToAdd = log10(array[i])+ 1;
+        long multiplyWithCurrent = pow(10, zerosToAdd);
+        outLong *= multiplyWithCurrent;
+        outLong += array[i];
+    }
+    
+    return outLong;
 }
 
 void day6part1(void){
@@ -81,10 +90,16 @@ void day6part1(void){
     char *distanceData = strtok(NULL, ":");
     setRecordedDistance(distanceData);
     
-    int ans = 1;
-    for (int i=0; i<4; i++){
-        ans *= getWinCount(i);
-    }
+    //day 6 part 1
+    long ans1 = 1;
+    for (int i=0; i<4; i++)
+        ans1 *= getWinCount(totalTime[i], recordDistance[i]);
+    printf("DAY 1 product of all ways to wins per game: %ld\n", ans1);
+    printf("\n");
     
-    printf("product of all ways to wins per game: %i\n", ans);
+    //day 6 part 2
+    long totalTimeLong = joinIntArray(totalTime);
+    long recordDistanceLong = joinIntArray(recordDistance);
+    long ans2 = getWinCount(totalTimeLong, recordDistanceLong);
+    printf("DAY 2 product of all ways to wins per game: %ld\n", ans2);
 }
