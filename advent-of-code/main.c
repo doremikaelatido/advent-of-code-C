@@ -18,8 +18,9 @@
 #include "day5/day5.h"
 #include "day5/day5-v2.h"
 #include "day6/day6.h"
+#include "day7/day7.h"
 
 int main(int argc, const char * argv[]) {
-    day6part1();
+    day7part1();
     return 0;
 }
