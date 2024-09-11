@@ -12,7 +12,6 @@
 #include <math.h>
 #include <stdbool.h>
 
-char order[13] = {'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'};
 int typeCounts[7] = {0};
 int indexMonitor[8] = {0};
 
@@ -34,7 +33,33 @@ TrieNode* initTrie(char data){
     return node;
 }
 
-int getRank(int *counted){
+void printRank(int rank){
+    printf("rank obtained: %i -> ", rank);
+    switch(rank){
+        case 6:
+            printf("five of a kind\n");
+            break;
+        case 5:
+            printf("four of a kind\n");
+            break;
+        case 4:
+            printf("full house\n");
+            break;
+        case 3:
+            printf("three of a kind\n");
+            break;
+        case 2:
+            printf("two pair\n");
+            break;
+        case 1:
+            printf("one pair\n");
+            break;
+        default:
+            printf("high card\n");
+            break;
+    }
+}
+int getRank1(int *counted){
     if (counted[4] == 1) return 6;
     else if (counted[3] == 1) return 5;
     else if (counted[2] == 1){
@@ -45,16 +70,39 @@ int getRank(int *counted){
     else return 0;
 }
 
-void addToTrie(TrieNode *node, char* card, int score){
+int getRank2(int *counted, int jokerCount, int maxCount){
+    int joked = maxCount + jokerCount;
+    
+    //6TT6J
+    if (counted[4] == 1 || joked ==  5) return 6;
+    else if (counted[3] == 1 || joked == 4) return 5;
+    else if (counted[2] == 1){
+        if (counted[1] == 1) return 4;
+        else return 3;
+    } else if (joked == 3){
+        if (jokerCount == 1 && counted[1] == 2) return 4;
+        else return 3;
+    } else if (counted[1] == 2 || (counted[1] ==  1 && jokerCount == 1 && joked == 2)) return 2;
+    else if (counted[1] == 1 || joked == 2) return 1;
+    else return 0;
+}
+
+void addToTrie1(TrieNode *node, char* card, int score, char* order){
     TrieNode *tmp = node;
     int counts[13] = {0};
     int counted[5] = {0};
+    int jokerCount = 0;
+    int maxCount = 0;
+    
+    printf("word: %s -> ", card);
     
     for (int i=0; i<5; i++){
         for (int c=0; c<13; c++){
             if (card[i] == order[c]){
                 if (counts[c] > 0) counted[counts[c]-1]--;
+                if (card[i] == 'J') jokerCount++;
                 counts[c]++;
+                if (counts[c] > maxCount && card[i] != 'J') maxCount = counts[c];
                 counted[counts[c]-1]++;
 
                 if (tmp->children[c] == NULL){
@@ -66,7 +114,45 @@ void addToTrie(TrieNode *node, char* card, int score){
         }
     }
 
-    tmp->rank = getRank(counted);
+    tmp->rank = getRank1(counted);
+    printRank(tmp->rank);
+    typeCounts[tmp->rank]++;
+    tmp->cardScore = score;
+    tmp->isLeaf = true;
+}
+
+void addToTrie2(TrieNode *node, char* card, int score, char* order){
+    TrieNode *tmp = node;
+    int counts[13] = {0};
+    int counted[5] = {0};
+    int jokerCount = 0;
+    int maxCount = 0;
+    
+    printf("word: %s -> ", card);
+    
+    for (int i=0; i<5; i++){
+        for (int c=0; c<13; c++){
+            if (card[i] == order[c]){
+                //part 2
+                if (card[i] == 'J') jokerCount++;
+                else {
+                    if (counts[c] > 0) counted[counts[c]-1]--;
+                    counts[c]++;
+                    if (counts[c] > maxCount) maxCount = counts[c];
+                    counted[counts[c]-1]++;
+                }
+
+                if (tmp->children[c] == NULL){
+                    tmp->children[c] = initTrie(card[i]);
+                }
+                tmp = tmp->children[c];
+                break;
+            }
+        }
+    }
+
+    tmp->rank = getRank2(counted, jokerCount, maxCount);
+    printRank(tmp->rank);
     typeCounts[tmp->rank]++;
     tmp->cardScore = score;
     tmp->isLeaf = true;
@@ -101,24 +187,28 @@ void day7part1(void){
     FILE* file = fopen("/Users/mikaelanicoleramos/Documents/GitHub/advent-of-code/resources/day-7.txt", "r");
     char line[256];
 
-    TrieNode cardTrie = *initTrie('*');
+    TrieNode cardTrie1 = *initTrie('*');
+    TrieNode cardTrie2 = *initTrie('*');
     
+    char order1[13] = {'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'};
+    char order2[13] = {'A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'};
+
     while(fgets(line, sizeof(line), file)){
         char* hand = strtok(line, " ");
         int points = atoi(strtok(NULL, " "));
-        
-        addToTrie(&cardTrie, hand, points);
+        //part 1
+        //addToTrie1(&cardTrie1, hand, points, order1);
+        addToTrie2(&cardTrie2, hand, points, order2);
     }
     
     char hand[6];
     long ans=0;
     createIndexMonitor();
-    for(int i=0; i<8; i++){
-        printf("%i ", indexMonitor[i]);
-    }
-    printf("\n");
+    
     for (int c=12; c>-1; c--){
-        ans += getTotalScore(*cardTrie.children[c], hand, 0);
+        //part 1
+        //ans += getTotalScore(*cardTrie1.children[c], hand, 0);
+        ans += getTotalScore(*cardTrie2.children[c], hand, 0);
     }
     printf("total score: %ld\n", ans);
 }
