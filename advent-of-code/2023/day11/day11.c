@@ -47,19 +47,23 @@ void day11part1(void){
         row++;
     }
     
-    int rowDistances[140] = {0};
-    int colDistances[143] = {0};
+    long rowDistances[140] = {0};
+    long colDistances[143] = {0};
 
     for (int row=1; row<140; row++){
         if (rowGalaxyCounts[row] == 0)
-            rowDistances[row] = rowDistances[row-1] + 2;
+            //use below line for day 1 - expands to 2x
+            //rowDistances[row] = rowDistances[row-1] + 2;
+            rowDistances[row] = rowDistances[row-1] + 1000000;
         else
             rowDistances[row] = rowDistances[row-1] + 1;
     }
     
     for (int col=1; col<143; col++){
         if (colGalaxyCounts[col] == 0)
-            colDistances[col] = colDistances[col-1] + 2;
+            //use below line for day 1 - expands to 2x
+            //colDistances[col] = colDistances[col-1] + 2;
+            colDistances[col] = colDistances[col-1] + 1000000;
         else
             colDistances[col] = colDistances[col-1] + 1;
     }
@@ -72,9 +76,9 @@ void day11part1(void){
             int g2_row = galaxies[g2][0];
             int g2_col = galaxies[g2][1];
             
-            int rowDistance = rowDistances[maxNum(g1_row, g2_row)] - rowDistances[minNum(g1_row, g2_row)];
-            int colDistance = colDistances[maxNum(g1_col, g2_col)] - colDistances[minNum(g1_col, g2_col)];
-            int totalDistance = rowDistance + colDistance;
+            long rowDistance = rowDistances[maxNum(g1_row, g2_row)] - rowDistances[minNum(g1_row, g2_row)];
+            long colDistance = colDistances[maxNum(g1_col, g2_col)] - colDistances[minNum(g1_col, g2_col)];
+            long totalDistance = rowDistance + colDistance;
             sumDistancePairs += totalDistance;
         }
     }
