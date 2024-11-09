@@ -10,4 +10,6 @@
 
 #include <stdio.h>
 
+void day11part1(void);
+
 #endif /* day11_h */

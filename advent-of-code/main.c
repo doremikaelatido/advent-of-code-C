@@ -20,8 +20,10 @@
 #include "2023/day6/day6.h"
 #include "2023/day7/day7.h"
 #include "2023/day9/day9.h"
+#include "2023/day10/day10.h"
+#include "2023/day11/day11.h"
 
 int main(int argc, const char * argv[]) {
-    day9();
+    day11part1();
     return 0;
 }

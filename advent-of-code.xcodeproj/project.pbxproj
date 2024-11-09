@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A004F5B82CDBADFC002894F4 /* day11.c in Sources */ = {isa = PBXBuildFile; fileRef = A004F5B72CDBADFC002894F4 /* day11.c */; };
+		A00E1FF52CD67D8B00C6E35F /* day10.c in Sources */ = {isa = PBXBuildFile; fileRef = A00E1FF42CD67D8B00C6E35F /* day10.c */; };
 		A01F4E892C9713FB000DF902 /* day9.c in Sources */ = {isa = PBXBuildFile; fileRef = A01F4E882C9713FB000DF902 /* day9.c */; };
 		A068DB752C95E05A0065CB8B /* day3.c in Sources */ = {isa = PBXBuildFile; fileRef = A068DB742C95E05A0065CB8B /* day3.c */; };
 		A068DB782C95E0780065CB8B /* day1.c in Sources */ = {isa = PBXBuildFile; fileRef = A068DB762C95E0780065CB8B /* day1.c */; };
@@ -32,6 +34,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A004F5B62CDBADFC002894F4 /* day11.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = day11.h; path = 2023/day11/day11.h; sourceTree = "<group>"; };
+		A004F5B72CDBADFC002894F4 /* day11.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = day11.c; path = 2023/day11/day11.c; sourceTree = "<group>"; };
+		A004F5B92CDBAE37002894F4 /* day-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-11.txt"; sourceTree = "<group>"; };
+		A00E1FEF2CD67D4800C6E35F /* day-10.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "day-10.txt"; sourceTree = "<group>"; };
+		A00E1FF32CD67D8B00C6E35F /* day10.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = day10.h; path = 2023/day10/day10.h; sourceTree = "<group>"; };
+		A00E1FF42CD67D8B00C6E35F /* day10.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = day10.c; path = 2023/day10/day10.c; sourceTree = "<group>"; };
 		A01C9DE92C75E15300C9136D /* day-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day-5.txt"; sourceTree = "<group>"; };
 		A01F4E872C9713FB000DF902 /* day9.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = day9.h; path = 2023/day9/day9.h; sourceTree = "<group>"; };
 		A01F4E882C9713FB000DF902 /* day9.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = day9.c; path = 2023/day9/day9.c; sourceTree = "<group>"; };
@@ -113,6 +121,10 @@
 				A091F6392C67A5A60056E511 /* main.c */,
 				A01F4E872C9713FB000DF902 /* day9.h */,
 				A01F4E882C9713FB000DF902 /* day9.c */,
+				A00E1FF32CD67D8B00C6E35F /* day10.h */,
+				A00E1FF42CD67D8B00C6E35F /* day10.c */,
+				A004F5B62CDBADFC002894F4 /* day11.h */,
+				A004F5B72CDBADFC002894F4 /* day11.c */,
 			);
 			path = "advent-of-code";
 			sourceTree = "<group>";
@@ -120,6 +132,8 @@
 		A091F6412C67A9880056E511 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				A004F5B92CDBAE37002894F4 /* day-11.txt */,
+				A00E1FEF2CD67D4800C6E35F /* day-10.txt */,
 				A01F4E8B2C9729AD000DF902 /* day-8.txt */,
 				A01F4E8A2C9729AD000DF902 /* day-9.txt */,
 				A0E37A4C2C909760005FD076 /* day-7.txt */,
@@ -190,9 +204,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A004F5B82CDBADFC002894F4 /* day11.c in Sources */,
 				A01F4E892C9713FB000DF902 /* day9.c in Sources */,
 				A068DB842C95E0C70065CB8B /* day5.c in Sources */,
 				A068DB7E2C95E0B60065CB8B /* day4.c in Sources */,
+				A00E1FF52CD67D8B00C6E35F /* day10.c in Sources */,
 				A068DB782C95E0780065CB8B /* day1.c in Sources */,
 				A068DB7B2C95E0860065CB8B /* day2.c in Sources */,
 				A068DB8A2C95E0DE0065CB8B /* day7.c in Sources */,

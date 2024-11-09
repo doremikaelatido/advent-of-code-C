@@ -9,5 +9,6 @@
 #define day10_h
 
 #include <stdio.h>
+void day10(void);
 
 #endif /* day10_h */
